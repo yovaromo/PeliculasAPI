@@ -25,11 +25,20 @@ namespace PeliculasAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GeneroDTO>>> GetGeneros()
+        public async Task<ActionResult<List<GeneroDTO>>> Get()
         {
             var entidades = await context.Generos.ToListAsync();
             var dtos = mapper.Map<List<GeneroDTO>>(entidades);
             return dtos;
+        }
+
+        [HttpGet("{nombre:string}")]
+        public async Task<ActionResult<List<GeneroDTO>>> Get(string genero)
+        {
+            var entidades = await context.Generos.Where(generosDB => generosDB.Nombre.Contains(genero)).ToListAsync();
+            
+            var generosDTO = mapper.Map<List<GeneroDTO>>(entidades);
+            return generosDTO;
         }
 
         [HttpGet("{id:int}", Name = "obtenerGenero")]

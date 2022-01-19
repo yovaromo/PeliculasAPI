@@ -32,7 +32,7 @@ namespace PeliculasAPI.Controllers
             return dtos;
         }
 
-        [HttpGet("{nombre:string}")]
+        [HttpGet("{nombre}")]
         public async Task<ActionResult<List<GeneroDTO>>> Get(string genero)
         {
             var entidades = await context.Generos.Where(generosDB => generosDB.Nombre.Contains(genero)).ToListAsync();
